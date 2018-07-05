@@ -22,7 +22,9 @@ public class CarRepositoryTest {
 
     @Test
     public void getCar_returnsCarDetails() throws Exception {
-
+        // Use Test Entity Manager Flush Find will actually send an insert to the database
+        // And the find will get the object from database and recreate it
+        // Repository.save does not flush to the database and remains in the cache.
         Car savedCar = entityManager.persistFlushFind(Car.builder().name("prius").type("hybrid").build());
 
         Car car = repository.findByName("prius");
