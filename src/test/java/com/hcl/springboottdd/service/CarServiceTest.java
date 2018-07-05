@@ -31,7 +31,7 @@ public class CarServiceTest {
     @Test
     public void getCarDetails_returnsCarInfo() {
 
-        given(carRepository.findByName(anyString())).willReturn(new Car("prius", "hybrid"));
+        given(carRepository.findByName(anyString())).willReturn(Car.builder().name("prius").type("hybrid").build());
         Car car = carService.getCarDetails("prius");
 
         assertThat(car.getName()).isEqualTo("prius");

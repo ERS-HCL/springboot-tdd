@@ -1,7 +1,7 @@
 package com.hcl.springboottdd.domain;
 
-public class CarRepository {
-    public Car findByName(String name) {
-        return null;
-    }
+import org.springframework.data.repository.CrudRepository;
+
+public interface CarRepository extends CrudRepository<Car,Long> {
+    Car findByName(String name);
 }
