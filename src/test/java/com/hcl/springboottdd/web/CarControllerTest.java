@@ -1,6 +1,7 @@
 package com.hcl.springboottdd.web;
 
 import com.hcl.springboottdd.domain.Car;
+import com.hcl.springboottdd.exception.CarNotFoundException;
 import com.hcl.springboottdd.service.CarService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,11 +31,13 @@ public class CarControllerTest {
     @Test
     public void getCar_ShouldReturnCar() throws Exception {
 
-        given(carService.getCarDetails(anyString())).willReturn(new Car("prius","hybrid"));
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/cars/prius"))
-                            .andExpect(status().isOk())
-                            .andExpect(jsonPath("name").value("prius"))
-                            .andExpect(jsonPath("type").value("hybrid"));
+        given(carService.getCarDetails(anyString())).willReturn(new Car("prius", "hybrid"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/cars/prius")).andExpect(status().isOk()).andExpect(jsonPath("name").value("prius")).andExpect(jsonPath("type").value("hybrid"));
+    }
+
+    @Test
+    public void getCar_notFound() throws Exception {
+        given(carService.getCarDetails(anyString())).willThrow(new CarNotFoundException());
+        mockMvc.perform(MockMvcRequestBuilders.get("/cars/prius")).andExpect(status().isNotFound());
     }
 }
