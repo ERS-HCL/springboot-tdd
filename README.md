@@ -12,4 +12,6 @@ TDD using Spring Boot
     * Run Tests
     * Refactor
     * Repeat
+## TDD flow
 
+![TDD flow](docs/illustration.png)
